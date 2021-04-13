@@ -1,4 +1,5 @@
 import React, {useState,useEffect} from 'react';
+import PropsTypes from 'prop-types';
 import { View, Text, StyleSheet, TouchableHighlight, Image } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -16,16 +17,20 @@ const styles = StyleSheet.create({
 });
 
 export default function SplashScreen(props) {
-  const [secondes, setsecondes]=useState(15);
+  const [secondes, setsecondes]=useState(1);
+  useEffect(() => {
+    reduceSec();
+  })
+
   useEffect(() => {
     reduceSec();
   }, [])
   const reduceSec=()=>{
-    interval=setInterval(()=>{
-if(secondes>0)setsecondes(secondes-1)
-else clearInterval(interval);
-
-    },1000)
+   setTimeout(()=>{
+     if(secondes>0)setsecondes(secondes-1);
+     else
+     {props.onFinishSplash()};
+   },1000)
   }
   return (
     <View style={styles.container}>
@@ -39,4 +44,8 @@ else clearInterval(interval);
       <Text>Patientez {secondes}s</Text>
     </View>
   );
+}
+
+SplashScreen.propTypes={
+  onFinishSplash:PropsTypes.func.isRequired
 }

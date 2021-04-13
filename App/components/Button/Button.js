@@ -7,7 +7,12 @@ import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 export default function Button(props) {
   return (
     <View>
-      <TouchableHighlight onPress={props.onclick} data-testid="Button" style={{ ...style.container, backgroundColor: props.bgcolor }}>
+      <TouchableHighlight onPress={()=>{
+        console.log('button clicked');
+        console.log(props);
+        props.onclick()
+        
+        }} data-testid="Button" style={{ ...style.container, backgroundColor: props.bgcolor }}>
         <Text style={style.contentText}>{props.text}</Text>
       </TouchableHighlight>
     </View>
